@@ -122,6 +122,7 @@
         },
         filters: {
             moneyFilter: toMoney
+            
         }
     }
 </script>
