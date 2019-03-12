@@ -57,17 +57,29 @@
         </div>
 
         <!-- floor-area -->
-        <floor-component :floorName="floorName.floor1" :floorDate="floor1"></floor-component>
-        <floor-component :floorName="floorName.floor2" :floorDate="floor2"></floor-component>
-        <floor-component :floorName="floorName.floor3" :floorDate="floor3"></floor-component>
+        <floor :floorName="floorName.floor1" :floorDate="floor1"></floor>
+        <floor :floorName="floorName.floor2" :floorDate="floor2"></floor>
+        <floor :floorName="floorName.floor3" :floorDate="floor3"></floor>
 
-        <!--Hot Area-->
+        <!-- hotGoods-area -->
         <div class="hot-area">
             <div class="hot-title">热卖商品</div>
             <div class="hot-goods">
-            <!--这里需要一个list组件-->
+                <!-- vanList组件 -->
+                <van-list>
+                    <van-row getter="20">
+                        <van-col span="12" v-for="(item, index) in hotGoods" :key="index">
+                            <goods-info :goodsImg="item.image" 
+                                        :goodsName="item.name" 
+                                        :goodsPrice="item.price">
+                            </goods-info>
+                        </van-col>
+                    </van-row>
+                </van-list>
             </div>
         </div>
+        
+        
 
     </div>
 </template>
@@ -77,7 +89,9 @@
     import 'swiper/dist/css/swiper.css'
     import {swiper, swiperSlide} from 'vue-awesome-swiper'
 
-    import FloorComponent from '../component/FloorComponent'
+    import Floor from '../component/FloorComponent'
+    import GoodsInfo from '../component/goodsinfoComponent'
+
     import {toMoney} from '@/filters/moneyFilter.js'
 
     export default {
@@ -90,15 +104,16 @@
                 locationIcon: require('../../assets/images/location.png'),
                 bannerImg: [],
                 category: [],
-                advertes: '',
-                recommendGoods: [],
-                floorName: {},
+                advertes: '',  //广告
+                recommendGoods: [],  //推荐商品
+                floorName: {},  //楼层
                 floor1: [],
                 floor2: [],
                 floor3: [],
+                hotGoods: []    //热卖
             }
         },
-        components: {swiper, swiperSlide, FloorComponent},
+        components: {swiper, swiperSlide, Floor, GoodsInfo},
         created() {
             axios({
                 url: 'https://www.easy-mock.com/mock/5c7d178fcf384074c61ce151/GraduationProject/index',
@@ -115,6 +130,7 @@
                 this.floor1 = data.floor1;
                 this.floor2 = data.floor2;
                 this.floor3 = data.floor3;
+                this.hotGoods = data.hotGoods;
             })
             .catch(err => {
                 console.log(err);
@@ -128,6 +144,10 @@
 </script>
 
 <style scoped>
+    p{
+        padding: 0;
+        margin: 0;
+    }
     /* start search-bar */
         .search-bar{
             height: 2.2rem;
@@ -210,13 +230,14 @@
         }
     /* end recomend-area */
 
-    /* start hot-area */
+    /* start hot-area*/
     .hot-area{
-      text-align: center;
-      font-size:14px;
-      height: 1.8rem;
-      line-height:1.8rem;
+        text-align: center;
+        font-size: 16px;
+        height: 2.4rem;
+        line-height: 2.4rem;
     }
-    /* end hot-area */
+    /* end hot-area*/
+
 
 </style>
