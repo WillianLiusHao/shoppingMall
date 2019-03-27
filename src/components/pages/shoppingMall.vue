@@ -1,23 +1,10 @@
 <template>
     <div>
-        <!-- search-bar -->
-        <div class="search-bar">
-            <van-row>
-                <van-col span="3" class="locationImg">
-                    <img :src="locationIcon">
-                </van-col>
-                <van-col span="16">
-                    <input type="text" class="search-input"  placeholder="请输入您要找的商品">
-                </van-col>
-                <van-col span="5">
-                    <van-button round size="mini" class="search-button">搜索</van-button>
-                </van-col>
-            </van-row>
-        </div>
+        <search-bar :searchGoods="goods"></search-bar>
 
         <!-- swiper -->
         <div class="swiper-wrap">
-            <van-swipe :autoplay="3000">
+            <van-swipe :autoplay="3000" :height="168">
                 <van-swipe-item v-for="(banner, index) in bannerImg" :key="index">
                     <img v-lazy="banner.image" width="100%">
                 </van-swipe-item>
@@ -63,7 +50,7 @@
 
         <!-- hotGoods-area -->
         <div class="hot-area">
-            <div class="hot-title">热卖商品</div>
+            <div class="hot-title"><van-icon name="fire" />热卖商品</div>
             <div class="hot-goods">
                 <!-- vanList组件 -->
                 <van-list>
@@ -79,6 +66,13 @@
             </div>
         </div>
         
+        <!-- tabbar-area -->
+        <van-tabbar v-model="active">
+            <van-tabbar-item icon="shop">首页</van-tabbar-item>
+            <van-tabbar-item icon="label" dot>分类</van-tabbar-item>
+            <van-tabbar-item icon="shopping-cart" info="5">购物车</van-tabbar-item>
+            <van-tabbar-item icon="manager" info="20">个人中心</van-tabbar-item>
+        </van-tabbar>
         
 
     </div>
@@ -91,8 +85,10 @@
 
     import Floor from '../component/FloorComponent'
     import GoodsInfo from '../component/goodsinfoComponent'
+    import SearchBar from '../component/SearchBar'
 
     import {toMoney} from '@/filters/moneyFilter.js'
+    import url from '@/serviceApi.config.js'
 
     export default {
         data() {
@@ -100,23 +96,23 @@
                 swiperOption: {
                     slidesPerView : 3
                 },
-                msg: 'shoppingMall',
-                locationIcon: require('../../assets/images/location.png'),
+                goods: "",
                 bannerImg: [],
                 category: [],
-                advertes: '',  //广告
-                recommendGoods: [],  //推荐商品
-                floorName: {},  //楼层
+                advertes: '',  // 广告
+                recommendGoods: [],  // 推荐商品
+                floorName: {},  // 楼层
                 floor1: [],
                 floor2: [],
                 floor3: [],
-                hotGoods: []    //热卖
+                hotGoods: [],    // 热卖
+                active: 0,   // 底部导航
             }
         },
-        components: {swiper, swiperSlide, Floor, GoodsInfo},
+        components: {swiper, swiperSlide, Floor, GoodsInfo, SearchBar},
         created() {
             axios({
-                url: 'https://www.easy-mock.com/mock/5c7d178fcf384074c61ce151/GraduationProject/index',
+                url: url.getShoppingMallInfo,
                 type: 'get'
             })
             .then(res => {
@@ -148,39 +144,10 @@
         padding: 0;
         margin: 0;
     }
-    /* start search-bar */
-        .search-bar{
-            height: 2.2rem;
-            background: #e5017d;
-            line-height: 2.2rem;
-        }
-        .locationImg{
-            text-align: center;
-            line-height: 2.2rem;
-        }
-        .locationImg img{
-            width: 50%;
-            vertical-align: middle;
-        }
-        .search-input{
-            width: 100%;
-            height: 1.3rem;
-            border: 0;
-            border-bottom: 1px solid #fff;
-            background: #e5017d;
-            color: #fff;
-        }
-        .search-input::-webkit-input-placeholder{
-            color: #fff;
-        }
-        .search-button{
-            margin-left: .4rem;
-        }
-    /* end search-bar */
 
     /* start wiper-wrap */
         .swiper-wrap{
-            max-height: 10.6rem;
+            margin-top: 1rem;
             overflow: hidden;
         }
     /* end wiper-wrap */
@@ -188,14 +155,14 @@
     /* start type-bar */
         .type-bar{
             background: #fff;
-            margin: 0 .3rem .3rem;
+            margin: .2rem .1rem;
             border-radius: .3rem;
             display: flex;
             flex-direction: row;
             flex-wrap: nowrap;
         }
         .type-bar .type-item{
-            padding: .3rem;
+            padding: .1rem;
             text-align: center;
             font-size: 12px;
         }
@@ -209,7 +176,7 @@
         .recomend-title{
             border-bottom: 1px solid #eee;
             font-size: 16px;
-            padding: .32rem;
+            padding: .16rem;
             color: #e5017d;
         }
         .recomend-body{
@@ -223,7 +190,7 @@
             text-align: center;
         }
         .slide-item .goods-price{
-            line-height: 1.4rem;
+            line-height: .68rem;
         }
         .old-price{
             text-decoration: line-through;
@@ -231,12 +198,12 @@
     /* end recomend-area */
 
     /* start hot-area*/
-    .hot-area{
-        text-align: center;
-        font-size: 16px;
-        height: 2.4rem;
-        line-height: 2.4rem;
-    }
+        .hot-area{
+            text-align: center;
+            font-size: 16px;
+            height: .8rem;
+            line-height: .8rem;
+        }
     /* end hot-area*/
 
 

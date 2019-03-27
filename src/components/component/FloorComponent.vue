@@ -1,6 +1,6 @@
 <template>
   <div class="floor">
-        <div class="floor-title">{{floorName}}</div>
+        <div class="floor-title"><van-icon name="star" />{{floorName}}</div>
         <div class="floor-unnormal">
             <div class="double-size">
                 <img :src="floorDate0.image" width="100%">
@@ -43,10 +43,10 @@ export default {
 <style scoped>
 /* start floor */
     .floor-title {
-        height: 2.4rem;
-        padding-left: 0.6rem;
+        height: .86rem;
+        padding-left: 0.3rem;
         font-size: 16px;
-        line-height: 2.4rem;
+        line-height: .86rem;
         font-weight: 600;
         color: #333;
     }
