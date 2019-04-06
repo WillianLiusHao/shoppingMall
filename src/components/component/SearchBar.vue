@@ -5,10 +5,10 @@
                 <van-icon name="wap-nav" color="#fff" size=".6rem"/>
             </van-col>
             <van-col span="16">
-                <van-search placeholder="请输入搜索关键词" v-model="goods" background="#e5017d"/>
+                <van-search placeholder="请输入搜索关键词" v-model="goods" background="#6182f9"/>
             </van-col>
             <van-col span="5" class="button-wrap">
-                <van-button round size="small" class="search-button">搜索</van-button>
+                <van-button round size="small" class="search-button" @click="findGoods()">搜索</van-button>
             </van-col>
         </van-row>
     </div>
@@ -20,6 +20,13 @@
         data() {
             return {
                 goods: ''
+            }
+        },
+        methods: {
+            findGoods() {
+                this.$toast({
+                    message: '搜索商品'
+                })
             }
         },
         watch:{
@@ -38,7 +45,7 @@
         right: 0;
         z-index: 100;
         height: 1rem;
-        background: #e5017d;
+        background: #6182f9;
         line-height: 1rem;
     }
     .left-icon{

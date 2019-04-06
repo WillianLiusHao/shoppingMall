@@ -18,6 +18,7 @@ userSchema.pre('save', function(next) {
     var user = this;
     bcrypt.genSalt(SALT_WORK_FACTOR, (err, salt)=> {
         if(err) return next(err)
+        console.log('*******用户密码*******')
         console.log("salt： " + salt);
         bcrypt.hash(user.password, salt, (err, hash)=>{
             if(err) return next(err)

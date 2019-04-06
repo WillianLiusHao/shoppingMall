@@ -1,5 +1,6 @@
 <template>
     <div>
+        <!-- search-bar -->
         <search-bar :searchGoods="goods"></search-bar>
 
         <!-- swiper -->
@@ -66,13 +67,7 @@
             </div>
         </div>
         
-        <!-- tabbar-area -->
-        <van-tabbar v-model="active">
-            <van-tabbar-item icon="shop">首页</van-tabbar-item>
-            <van-tabbar-item icon="label" dot>分类</van-tabbar-item>
-            <van-tabbar-item icon="shopping-cart" info="5">购物车</van-tabbar-item>
-            <van-tabbar-item icon="manager" info="20">个人中心</van-tabbar-item>
-        </van-tabbar>
+        
         
 
     </div>
@@ -82,10 +77,11 @@
     import axios from 'axios'
     import 'swiper/dist/css/swiper.css'
     import {swiper, swiperSlide} from 'vue-awesome-swiper'
+    import { Toast } from 'vant'
 
-    import Floor from '../component/FloorComponent'
-    import GoodsInfo from '../component/goodsinfoComponent'
-    import SearchBar from '../component/SearchBar'
+    import Floor from '@/components/component/FloorComponent'
+    import GoodsInfo from '@/components/component/goodsinfoComponent'
+    import SearchBar from '@/components/component/SearchBar'
 
     import {toMoney} from '@/filters/moneyFilter.js'
     import url from '@/serviceApi.config.js'
@@ -139,72 +135,68 @@
     }
 </script>
 
-<style scoped>
+<style lang="scss">
     p{
         padding: 0;
         margin: 0;
     }
 
-    /* start wiper-wrap */
-        .swiper-wrap{
-            margin-top: 1rem;
-            overflow: hidden;
-        }
-    /* end wiper-wrap */
+    /* wiper-wrap */
+    .swiper-wrap{
+        margin-top: 1rem;
+        overflow: hidden;
+    }
 
-    /* start type-bar */
-        .type-bar{
-            background: #fff;
-            margin: .2rem .1rem;
-            border-radius: .3rem;
-            display: flex;
-            flex-direction: row;
-            flex-wrap: nowrap;
-        }
-        .type-bar .type-item{
+    /* type-bar */
+    .type-bar{
+        background: #fff;
+        margin: .2rem .1rem;
+        border-radius: .3rem;
+        display: flex;
+        flex-direction: row;
+        flex-wrap: nowrap;
+        .type-item{
             padding: .1rem;
             text-align: center;
             font-size: 12px;
         }
-    /* end type-bar */
+    }
 
-    /* star recomend-area */
-        .recomend-area{
-            background: #fff;
-            margin-top: .1rem;
-        }
+    /* recomend-area */
+    .recomend-area{
+        background: #fff;
+        margin-top: .1rem;
         .recomend-title{
             border-bottom: 1px solid #eee;
             font-size: 16px;
             padding: .16rem;
-            color: #e5017d;
+            color: #6182f9;
         }
         .recomend-body{
             border-bottom: 1px solid #eee;
+            .slide-item{
+                width: 100%;
+                box-sizing: border-box;
+                border-right: 1px solid #eee;
+                font-size: 14px;
+                text-align: center;
+                .goods-price{
+                    line-height: .68rem;
+                    .old-price{
+                        text-decoration: line-through;
+                    }
+                }
+                
+            }
         }
-        .slide-item{
-            width: 100%;
-            box-sizing: border-box;
-            border-right: 1px solid #eee;
-            font-size: 14px;
-            text-align: center;
-        }
-        .slide-item .goods-price{
-            line-height: .68rem;
-        }
-        .old-price{
-            text-decoration: line-through;
-        }
-    /* end recomend-area */
+    }
 
-    /* start hot-area*/
-        .hot-area{
-            text-align: center;
-            font-size: 16px;
-            height: .8rem;
-            line-height: .8rem;
-        }
-    /* end hot-area*/
-
+    /* hot-area*/
+    .hot-area{
+        text-align: center;
+        font-size: 16px;
+        height: .8rem;
+        line-height: .8rem;
+    }
 
 </style>
