@@ -29,6 +29,18 @@ userSchema.pre('save', function(next) {
     })
 })
 
+// 登录时候的密码匹配
+userSchema.methods = {
+    comparePassword:(_password, password) =>{
+        return new Promise((resolve, reject) => {
+            bcrypt.compare(_password, password, (err, isMatch) => {
+                if(!err) resolve(isMatch);
+                else reject(err);
+            })
+        })
+    }
+}
+
 // 发布模型
 Mongoose.model('User', userSchema);  
 // 'User'指的是数据库中的表名，这里利用model把数据库中的表和我们自己定义的userSchema绑定上了

@@ -11,14 +11,17 @@ app.use(bodyParser())
 app.use(cors())
 
 let user = require('./appApi/user.js')
+let goods = require('./appApi/goods.js')
 
 // 装载所有子路由
 let router = new Router()
 router.use('/user', user.routes())
+router.use('/goods', goods.routes())
+
 
 // 加载路由中间件
 app.use(router.routes())
-app.use(router.allowedMethods())
+app.use(router.allowedMethods()) 
 
 ;(async () => {
   await connect();
@@ -31,7 +34,7 @@ app.use(router.allowedMethods())
 })()
 
 app.use(async (ctx) => {
-  ctx.body = '<h1>this is shoppingMall !!!</h1>';
+  ctx.body = '<h1>Hello Koa2</h1>';
 })
 
 app.listen(3000, () => {

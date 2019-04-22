@@ -1,6 +1,6 @@
 <template>
     <div>
-        搜索页
+        分类页
     </div>
 </template>
 
